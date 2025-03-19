@@ -1,0 +1,85 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Ejemplo index{% endblock %}
+
+{% block body %}
+
+    {#comentario es essto#}
+
+{% if ejemplos is defined %}
+
+    <h1>Pruebecillas</h1>
+
+        {% for ejemplo in ejemplos %}
+            {{ejemplo.nombre}}
+        {% endfor %}
+
+        <br/>
+
+        {# 'e' lo trata como un array#}
+        {% for e in ejemplos|keys %}
+            {{e}}
+            {{ejemplos[e].nombre}}
+        {% endfor %}
+
+        <br/>
+
+        {% for key,e in ejemplos %}
+            {{key}}
+            {{ejemplos[key].nombre}}
+            {{e.apellido}}
+        {% endfor %}
+
+        <br/>
+
+        {% for key,e in ejemplos %}
+            {{ attribute(ejemplos[key], 'nombre') }}
+        {% endfor %}
+
+        <br/>
+
+        {% set nombre = 'apellido' %}
+        {% for key,e in ejemplos %}
+            {{ attribute(ejemplos[key], nombre) }}
+        {% endfor %}
+
+
+    <h1>Ejemplo index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Nombre</th>
+                <th>Apellido</th>
+                <th>Edad</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for ejemplo in ejemplos %}
+            <tr>
+                <td>{{ ejemplo.id }}</td>
+                <td>{{ ejemplo.nombre|upper }}</td>
+                <td>{{ ejemplo.apellido }}</td>
+                <td>{{ ejemplo.edad }}</td>
+                <td>
+                    <a href="{{ path('app_ejemplo_show', {'id': ejemplo.id}) }}">show</a>
+                    <a href="{{ path('app_ejemplo_edit', {'id': ejemplo.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="5">Ejemplos está vacío</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+{% else %}
+    <p>Ejemplo no está definido</p>
+
+{% endif %}
+
+    <a href="{{ path('app_ejemplo_new') }}">Create new</a>
+{% endblock %}
