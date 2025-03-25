@@ -1,0 +1,84 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Factura index{% endblock %}
+
+{% block navbar_active_facturas %}active{% endblock %}
+
+{% block body %}
+
+    <h1>Factura index</h1>
+
+    {% for message in app.flashes('success') %}
+        <div class="alert alert-success" role="alert">
+            {{ message }}
+        </div>
+    {% endfor %}
+
+    {#<a href="{{ path('app_factura_new') }}">Create new</a>#}
+    <a 
+        href="{{ path('app_ocr') }}"
+        class="btn btn-primary mb-3"
+    >Escanear Factura</a>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Numero</th>
+                <th>Texto</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for factura in facturas %}
+            <tr>
+                <td>{{ factura.id }}</td>
+                <td>{{ factura.numero }}</td>
+                <td>{{ factura.texto }}</td>
+                <td>
+                    <div class="d-flex">
+                        <a 
+                            href="{{ path('app_factura_show', {'id': factura.id}) }}"
+                            class="btn btn-dark me-1"
+                            data-bs-toggle="tooltip" 
+                            title="Ver"
+                        >
+                            <i class="bi bi-eye"></i>  <!-- Icono para ver -->
+
+                        </a>
+                        <a 
+                            href="{{ path('app_factura_edit', {'id': factura.id}) }}"
+                            class="btn btn-secondary"
+                            data-bs-toggle="tooltip" 
+                            title="Editar"
+                        >
+                            <i class="bi bi-pencil"></i>  <!-- Icono para editar -->
+                        </a>
+                    </div>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="4">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script>
+        // Inicializar los tooltips de Bootstrap
+        var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
+        var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+            return new bootstrap.Tooltip(tooltipTriggerEl);
+        });
+    </script>
+{% endblock %}

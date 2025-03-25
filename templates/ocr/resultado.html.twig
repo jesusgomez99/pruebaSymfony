@@ -1,0 +1,83 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Resultado OCR{% endblock %}
+
+{% block body %}
+    <div class="example-wrapper">
+    
+        <h1>Texto Reconocido</h1>
+        
+
+        {% if textoReconocido %}
+
+            <form action="{{ path('app_ocr_guardar') }}" method="post" enctype="multipart/form-data">
+                
+                <div class="form-group">
+
+                    <label for="numero">Número de factura</label>
+                
+                    <input 
+                        type="text" 
+                        class="form-control" 
+                        name="numero" 
+                        value=""
+                        required
+                    />
+
+                </div>
+
+                    <br/>
+
+                <div class="form-group">
+                    <label for="texto">Comprueba que el texto está correcto:</label>
+                
+                    <textarea 
+                        class="form-control" 
+                        rows="8" 
+                        name="texto"
+                        required
+                    >{{ textoReconocido }}</textarea>
+                </div>
+                    <br/>
+
+                <div class="form-group">
+                    <label for="proveedor">Proveedor:</label>
+                    <select 
+                        id="proveedor" 
+                        name="proveedor"
+                        class="form-select"
+                        required
+                    >
+                        {% for proveedor in proveedores %}
+                            <option value="{{ proveedor.id }}" 
+                                {% if idProveedorSeleccionado is defined and idProveedorSeleccionado == proveedor.id %} selected {% endif %}
+                            >
+                                {{ proveedor.nombre }}
+                            </option>
+                        {% endfor %}
+
+
+
+                    </select>
+                </div>
+
+                    <br/>
+                
+                <button 
+                    type="submit" 
+                    class="btn btn-primary" 
+                >Confirmar</button>
+
+                <a 
+                    href="{{ path('app_ocr') }}" 
+                    class="btn btn-secondary"
+                >Cancelar</a>
+
+            </form>
+
+        {% else %}
+            <p>No se ha reconocido ningún texto de la imagen o no se ha subido ninguna imagen.</p>
+        {% endif %}
+        
+    </div>
+{% endblock %}

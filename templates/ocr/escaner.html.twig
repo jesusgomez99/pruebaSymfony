@@ -1,0 +1,45 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Escáner{% endblock %}
+
+{% block navbar_active_escaner %}active{% endblock %}
+
+{% block body %}
+    <div>
+        <h1>¡Bienvenido al OCR en {{ controller_name }}!</h1>
+
+        <form action="{{ path('app_ocr_procesar') }}" method="post" enctype="multipart/form-data">
+            
+            <div id="drop-area" class="drop-area m-5">
+                <p>Arrastra y suelta una imagen aquí o</p>
+                <label for="imagen" class="file-label">Seleccionar archivo</label>
+                <input type="file" name="imagen" id="imagen" class="file-input" required accept="image/*">
+                <div id="preview" class="preview-container"></div>
+            </div>
+
+            <button 
+                type="submit" 
+                class="btn btn-primary ms-5" 
+            >Subir Imagen</button>
+            
+            {#<label for="imagen">Seleccionar imagen para procesar:</label>
+            <br/>
+            <input type="file" name="imagen" id="imagen" required>
+            <br/><br/>
+            <button 
+                type="submit" 
+                class="btn btn-primary" 
+            >Subir Imagen</button>#}
+        </form>
+    </div>
+{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}  <!-- Para asegurar que los estilos del archivo base se mantengan -->
+    <link rel="stylesheet" href="{{ asset('recursos/droganddrop/droganddrop.css') }}">
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}  <!-- Para asegurar que los scripts del archivo base se mantengan -->
+    <script src="{{ asset('recursos/droganddrop/droganddrop.js') }}"></script>
+{% endblock %}

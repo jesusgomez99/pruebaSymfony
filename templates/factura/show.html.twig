@@ -1,0 +1,36 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Factura{% endblock %}
+
+{% block body %}
+    <h1>Factura</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ factura.id }}</td>
+            </tr>
+            <tr>
+                <th>Numero</th>
+                <td>{{ factura.numero }}</td>
+            </tr>
+            <tr>
+                <th>Texto</th>
+                <td>{{ factura.texto|nl2br }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a 
+        href="{{ path('app_factura_index') }}"
+        class="btn btn-dark"
+    >Volver</a>
+
+    <a 
+        href="{{ path('app_factura_edit', {'id': factura.id}) }}"
+        class="btn btn-secondary"
+    >Editar</a>
+
+    {{ include('factura/_delete_form.html.twig') }}
+{% endblock %}

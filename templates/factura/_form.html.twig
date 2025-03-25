@@ -1,0 +1,47 @@
+{{ form_start(form) }}
+
+    {# {{ form_widget(form) }} #}
+
+
+    <div class="form-group">
+        {{ form_label(form.numero, 'Número de factura') }}
+        {{ form_widget(form.numero, {
+            'attr': {
+                'class': 'form-control',
+                'required': true
+            }
+        }) }}
+        {{ form_errors(form.numero) }}
+    </div>
+
+    <br/>
+
+    <div class="form-group">
+        {{ form_label(form.texto, 'Comprueba que el texto está correcto:') }}
+        {{ form_widget(form.texto, {
+            'attr': {
+                'class': 'form-control',
+                'rows': 8,
+                'required': true
+            }
+        }) }}
+        {{ form_errors(form.texto) }}
+    </div>
+
+    <br/>
+
+    <div class="form-group">
+        {{ form_label(form.proveedor, 'Proveedor:') }}
+        {{ form_widget(form.proveedor, {
+            'attr': {
+                'class': 'form-select',
+                'required': true
+            }
+        }) }}
+        {{ form_errors(form.proveedor) }}
+    </div>
+
+    <br/>
+    
+    <button class="btn btn-success">{{ button_label|default('Save') }}</button>
+{{ form_end(form) }}

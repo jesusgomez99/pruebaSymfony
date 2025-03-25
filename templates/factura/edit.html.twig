@@ -1,0 +1,23 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Editar Factura{% endblock %}
+
+{% block body %}
+
+    <div class="d-flex align-items-center ">
+
+        <a 
+            href="{{ path('app_factura_index') }}"
+            class="btn btn-secondary me-3"
+        >Volver</a>
+
+        <h1>Editar Factura</h1>
+
+    </div>
+
+    <div>
+        {{ include('factura/_form.html.twig', {'button_label': 'Guardar'}) }}
+
+        {{ include('factura/_delete_form.html.twig') }}
+    </div>
+{% endblock %}
